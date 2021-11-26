@@ -105,4 +105,27 @@ public class Trie {
 
     }
 
+    public static Trie readInDictionary(String fileName){
+        Trie trie = new Trie();
+        Scanner fileScanner;
+
+        try{
+            fileScanner = new Scanner(new FileInputStream(fileName));
+
+            while(fileScanner.hasNextLine()){
+                String nextLine = fileScanner.nextLine();
+
+                String[] parsed = nextLine.split("\\s");
+                String word = parsed[1];
+                int dataNum = Integer.parseInt(parsed[2]);
+
+                TrieData data = new TrieData(dataNum);
+                trie.insert(word, data);
+            }
+        } catch (FileNotFoundException ex){
+            System.out.println("Could not find file: " + fileName);
+            return null;
+        }
+       return trie;
+    }
 }
