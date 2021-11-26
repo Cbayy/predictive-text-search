@@ -1,5 +1,8 @@
 package trie;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 public class Trie {
 
     private TrieNode root = new TrieNode();
@@ -22,5 +25,38 @@ public class Trie {
         current.setTerminal(true);
 
         return current;
+    }
+
+    public TrieNode getNode(String str){
+        TrieNode current = root;
+
+        for(int i = 0; i < str.length(); i++){
+            current = current.getChild(str.charAt(i));
+
+            if(current == null){
+                return null;
+            }
+        }
+        return current;
+    }
+
+    public TrieNode get(String str){
+        TrieNode current = getNode(str);
+
+        if(current != null){
+            if(current.isTerminal()){
+                return current;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    public String getMostFrequentWordWithPrefix(String prefix){
+
+        String suffix = "";
+
+        
+        return suffix;
     }
 }
