@@ -3,7 +3,9 @@ package trie;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
+import java.util.Locale;
 
 public class SearchFrame extends JFrame implements DocumentListener {
 
@@ -34,7 +36,26 @@ public class SearchFrame extends JFrame implements DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent e) {
+        if(e.getLength() !=1){
+            return;
+        }
+        int pos = e.getOffset();
+        String content = null;
 
+        try {
+            content = textArea.getText(0, pos+1);
+        } catch (BadLocationException badLocationException) {
+            badLocationException.printStackTrace();
+        }
+
+        int w;
+        for (w = pos; w >= 0; w--) {
+            if (!Character.isLetter(content.charAt(w))) {
+                break;
+            }
+        }
+        String prefix = content.substring(w+1).toLowerCase();
+        String suffix = dictionaryTrie.getMostFrequentWordWithPrefix(prefix);
     }
 
     @Override
