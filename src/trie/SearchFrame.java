@@ -57,6 +57,11 @@ public class SearchFrame extends JFrame implements DocumentListener {
                 break;
             }
         }
+        //Added check if incoming prefix is smaller than 1 letter
+        if (pos - w < 1) {
+            return;
+        }
+
         String prefix = content.substring(w+1).toLowerCase();
         String suffix = dictionaryTrie.getMostFrequentWordWithPrefix(prefix);
 
